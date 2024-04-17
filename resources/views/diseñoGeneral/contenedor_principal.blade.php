@@ -19,9 +19,9 @@
         <nav class="navbar container">
             <div class="container-fluid">
                 <img src="{{asset("elefantesincolor.png")}}" width="220px">
-                <div class="text-center mt-3 justify-content-center">
+                <div class="text-center mt-3 justify-content-center" style="align-content: center; display: flex">
                     <span class="fw-bold-7 me-5 fs-5 ">@yield('usuario')</span>
-                    <span class="fw-bold-7 me-5 ">@yield('usuario_info_extra')</span>
+                    <p class="fw-bold-7 me-5 fs-5">@yield('usuario_info_extra')</p>
                 </div>
             </div>
         </nav>

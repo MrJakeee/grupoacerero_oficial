@@ -23,11 +23,11 @@
                         @csrf
                         <div class="mb-3">
                             <label for="for_id_usuario" class="form-label">ID Empleado</label>
-                            <input type="text" class="form-control" name="id_empleado">
+                            <input type="text" class="form-control" name="id_empleado" style="text-align: center">
                         </div>
                         <div class="mb-3">
                             <label for="password_empleado" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" name="password_empleado">
+                            <input type="password" class="form-control" name="password_empleado" style="text-align: center">
                         </div>
 
                         <div class="modal-footer">

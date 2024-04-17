@@ -11,7 +11,28 @@ class EmpleadoEntradaController extends Controller
     public function registrarEntrada(Request $request)
     {
         $datos_empleado_entrada = $this->obtenerDatosEmpleado($request);
-        return view("Empleados.Entrada.Empleado_entrada")->with(['datos_empleado_entrada' => $datos_empleado_entrada]);
+
+        //Aqui tengo que realizar una funcion para obtener los informes que esten activos
+        $this->informesActivosEntrada($request);
+        $informe_entrada = $request->session()->get('informeEntrada');
+
+        // returnea una vista con los datos del empleado entrada
+        return view("Empleados.Entrada.Empleado_entrada")->with(['datos_empleado_entrada' => $datos_empleado_entrada,
+            'informeEntrada' => $informe_entrada]);
+    }
+
+    public function informesActivosEntrada(Request $request)
+    {
+        $request->session()->remove('informeEntrada');
+        try {
+                $sql_informes = DB::select("SELECT * FROM informes JOIN proovedores ON informes.id_proovedor = proovedores.id_proovedor WHERE status = true;");
+            if (!empty($sql_informes)){
+                $request->session()->put('informeEntrada', $sql_informes);
+            }
+        }catch (\Throwable $throwable){
+            return view("Empleado.Entrada.Empleado_entrada")->with("Incorrecto", "Surgio el siguiente problema ". $throwable);
+        }
+
     }
 
     public function solicitarDatos(Request $request, $id)
@@ -26,10 +47,17 @@ class EmpleadoEntradaController extends Controller
                 return view("Empleados.Entrada.Empleado_entrada_mostrarDatos")->with(['empleado_entrada' => $empleado_entrada,
                     'datos_proovedor' => $datos_proovedor]);
             }else{
-                return view("Empleados.Entrada.Empleado_entrada")->with('incorrecto', "No se pudieron solicitar los datos del servidor");
+
+                return redirect()->route("registrar.entrada")->with([
+                    'incorrecto' => "Ha sucedido algún problema",
+                    'datos_empleado_entrada' => $empleado_entrada,
+                    'informeEntrada' => session()->get('informeEntrada'),
+                ]);
             }
         }catch (\Throwable $throwable){
-            return view("Empleado.Entrada.Empleado_entrada")->with("Incorrecto", "Surgio el siguiente problema ". $throwable);
+            return redirect()->route("registrar.entrada")->with([
+                'incorrecto' => "Ha sucedido algún problema".$throwable
+            ]);
         }
     }
 
@@ -45,7 +73,7 @@ class EmpleadoEntradaController extends Controller
             $dato_id_empleado = $request->id_empleado;
 
             if (!empty($dato_id_proovedor) && !empty($dato_id_empleado)){
-                $sql_insert_informe = DB::insert("INSERT INTO informes(hora_salida, status, id_empleado, id_proovedor) VALUES (NULL, 0, (?), (?))", [
+                $sql_insert_informe = DB::insert("INSERT INTO informes(hora_salida, status, id_empleado, id_proovedor) VALUES (NULL, 1, (?), (?))", [
                     $dato_id_empleado,
                     $dato_id_proovedor
                 ]);
