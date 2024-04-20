@@ -21,8 +21,8 @@ class LoginEmpleadosController extends Controller
             if (!empty($peticion_cargo)){
                 switch ($peticion_cargo[0]->nombre_cargo){
                     case "Administrador":
-                        dd("Redirecciona a route: (empleado_index)");
-                        break;
+                        $request->session()->put('datos_empleado_administrador', $peticion_cargo);
+                        return redirect()->route("administrador.index");
 
                     case "E_Entrada":
                         $request->session()->put('datos_empleado_entrada', $peticion_cargo);
