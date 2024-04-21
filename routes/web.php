@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\EmpleadoAdministrador;
+use App\Http\Controllers\EmpleadoAdministradorController;
 use App\Http\Controllers\EmpleadoEntradaController;
 use App\Http\Controllers\EmpleadoSalidaController;
 use App\Http\Controllers\indexController;
@@ -21,5 +21,7 @@ Route::get("/registrar-salida", [EmpleadoSalidaController::class, "registrarSali
 Route::get("/registrar-salida-solicitud/{id}", [EmpleadoSalidaController::class, "solicitarDatosSalida"])->name("registrar.datos.salida");
 Route::post("/registrar-salida-proovedor", [EmpleadoSalidaController::class, "enviarDatosSalida"])->name("enviar.datos.salida");
 
-Route::get("/administrador", [EmpleadoAdministrador::class, "index"])->name("administrador.index");
-Route::get("/administrador/pdf-{id}", [EmpleadoAdministrador::class, "pdf"])->name("administrador.pdf");
+Route::get("/administrador", [EmpleadoAdministradorController::class, "index"])->name("administrador.index");
+Route::get("/administrador/pdf-{id}", [EmpleadoAdministradorController::class, "pdf"])->name("administrador.pdf");
+Route::get("/administrador/busqueda", [EmpleadoAdministradorController::class, "buscarInformePorFecha"])->name("administrador.bs.informe");
+Route::get("/administrador/excel-{id}", [EmpleadoAdministradorController::class, "excel"])->name("administrador.excel");

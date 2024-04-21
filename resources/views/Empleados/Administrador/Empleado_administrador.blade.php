@@ -24,10 +24,10 @@
 
 @section('contendor_bajo')
 
-    <div>
-        <form class="text-center m-5 p-1" action="">
-            <label for="fecha_y_hora">Buscar por una fecha y hora:</label>
-            <input type="datetime-local" id="fecha_y_hora" name="fecha_y_hora">
+    <div style="height: 52vh">
+        <form class="text-center m-5 p-1" action="{{route("administrador.bs.informe")}}" method="get">
+            <label for="fecha_y_hora">Buscar por fecha de entrada</label>
+            <input type="date" id="fecha" name="fecha">
             <button type="submit">Buscar</button>
         </form>
 
@@ -38,6 +38,7 @@
                     <tr>
                         <th scope="col">ID_Informe</th>
                         <th scope="col">Hora Entrada</th>
+                        <th scope="col">Hora Salida</th>
                         <th scope="col">Nombre Proovedor</th>
                         <th></th>
                     </tr>
@@ -48,9 +49,10 @@
                             <th>{{$item_informes->id_informe}}</th>
                             <td>{{$item_informes->hora_entrada}}</td>
                             <td>{{$item_informes->hora_salida}}</td>
+                            <td>{{$item_informes->nombre_proovedor}}</td>
                             <td class="">
                                 <a href="{{ route('administrador.pdf', $item_informes->id_informe) }}" class="btn btn-warning btn-sm"><i class="fa-regular fa-file-pdf"></i></a>
-                                <a href=""  class="btn btn-warning btn-sm"><i class="fa-regular fa-file-excel"></i></a>
+                                <a href="{{route('administrador.excel', $item_informes->id_informe )}}"  class="btn btn-warning btn-sm"><i class="fa-regular fa-file-excel"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -60,4 +62,13 @@
     </div>
 
     <script src="https://kit.fontawesome.com/d4a37425ae.js" crossorigin="anonymous"></script>
+@endsection
+
+
+@section("mensajes_sistema")
+    @if(session('correcto'))
+        <h2 id="validated_message" style="color: white">{{session('correcto')}}</h2>
+    @elseif(session('incorrecto'))
+        <h2 id="error_message" style="color: red">{{session('incorrecto')}}</h2>
+    @endif
 @endsection
