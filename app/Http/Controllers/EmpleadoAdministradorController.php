@@ -59,6 +59,7 @@ class EmpleadoAdministradorController extends Controller
         }
     }
 
+
     public function pdf(Request $request, $id)
     {
         $informe = $request->session()->get('informe');
@@ -80,6 +81,21 @@ class EmpleadoAdministradorController extends Controller
 
     public function excel(Request $request, $id)
     {
-        return Excel::download(new EmpleadoAdminExport(), 'informe.xls');
+        // Accede a los datos de la sesión
+        $sesionData = $request->session()->get('informe');
+
+        // Si tienes datos en la sesión, agrégalos a tus informes
+        foreach ($sesionData as $informes){
+            if ($informes->id_informe == $id){
+                $informe[] = $informes;
+            }
+        }
+
+        // Convierte los datos en una colección
+        $colección = collect($informe);
+
+        // Devuelve el archivo Excel
+        return Excel::download(new EmpleadoAdminExport($colección), 'informes.xlsx');
     }
+
 }

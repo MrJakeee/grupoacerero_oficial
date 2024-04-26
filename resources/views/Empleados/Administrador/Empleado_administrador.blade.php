@@ -14,8 +14,12 @@
 
     <div class="m-5 p-1">
         <div class="d-flex justify-content-around m-5">
-            <button class="btn-custom bg-orange">Ver Empleados</button>
-            <button class="btn-custom bg-orange">Ver Proovedores</button>
+            <form action="{{route("empleados.index")}}" method="get">
+                <button class="btn-custom bg-orange">Ver Empleados</button>
+            </form>
+            <form action="{{route("proveedores.index")}}" method="post">
+                <button class="btn-custom bg-orange">Ver Proovedores</button>
+            </form>
         </div>
     </div>
 

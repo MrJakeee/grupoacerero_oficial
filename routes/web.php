@@ -3,8 +3,10 @@
 use App\Http\Controllers\EmpleadoAdministradorController;
 use App\Http\Controllers\EmpleadoEntradaController;
 use App\Http\Controllers\EmpleadoSalidaController;
+use App\Http\Controllers\EmpleadosController;
 use App\Http\Controllers\indexController;
 use App\Http\Controllers\LoginEmpleadosController;
+use App\Http\Controllers\ProveedoresController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -25,3 +27,11 @@ Route::get("/administrador", [EmpleadoAdministradorController::class, "index"])-
 Route::get("/administrador/pdf-{id}", [EmpleadoAdministradorController::class, "pdf"])->name("administrador.pdf");
 Route::get("/administrador/busqueda", [EmpleadoAdministradorController::class, "buscarInformePorFecha"])->name("administrador.bs.informe");
 Route::get("/administrador/excel-{id}", [EmpleadoAdministradorController::class, "excel"])->name("administrador.excel");
+
+
+Route::get("/empleados", [EmpleadosController::class, "index"])->name("empleados.index");
+Route::post("/empleados/update", [EmpleadosController::class, "update"])->name("empleados.update");
+Route::get("/empleados/delete-{id}", [EmpleadosController::class, "delete"])->name("empleados.delete");
+
+Route::get("/proveedores", [ProveedoresController::class, "index"])->name("proveedores.index");
+
