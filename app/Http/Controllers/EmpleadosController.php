@@ -26,10 +26,10 @@ class EmpleadosController extends Controller
                 return view("Empleados.Administrador.Empleados.empleados")->with(['datos_admin' => $datos_admin, 'datos_empleados' => $empleados_sql,
                     'cargos' => $cargos]);
             }else{
-                return redirect()->route("empleados.index")->with('incorrecto', "Algo ha salido mal con la peticion");
+                return redirect()->route("administrador.index")->with('incorrecto', "Algo ha salido mal con la peticion");
             }
         }catch (\Throwable $throwable){
-            return redirect()->route("empleados.index")->with('incorrecto', "Algo ha salido mal" .$throwable);
+            return redirect()->route("administrador.index")->with('incorrecto', "Algo ha salido mal" .$throwable);
         }
     }
 
@@ -68,6 +68,28 @@ class EmpleadosController extends Controller
             }
         }catch (\Throwable $throwable){
             return redirect()->route("empleados.index")->with('incorrecto', "Algo ha salido mal" . $throwable);
+        }
+    }
+
+    public function add(Request $request)
+    {
+        try{
+            $sql_add = DB::insert("INSERT INTO empleados (nombre_empleado, domicilio_empleado, colonia_empleado, id_cargo, pass_empleado) 
+            VALUES ((?),(?),(?),(?),(?));", [
+                $request->nombre_empleado,
+                $request->domiclio_empleado,
+                $request->colonia_empleado,
+                $request->cargo_empleado,
+                $request->password_empleado
+            ]);
+
+            if (!empty($sql_add)){
+                return redirect()->route("empleados.index")->with('correcto', "Se ha registrado correctamente el usuario");
+            }else{
+                return redirect()->route("empleados.index")->with('incorrecto', "No se ha registrado correctamente el usuario");
+            }
+        }catch (\Throwable $throwable){
+            return redirect()->route("empleados.index")->with('incorrecto', "A ocurrido un error " .$throwable);
         }
     }
 }

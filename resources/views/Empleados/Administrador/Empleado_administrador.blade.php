@@ -17,7 +17,7 @@
             <form action="{{route("empleados.index")}}" method="get">
                 <button class="btn-custom bg-orange">Ver Empleados</button>
             </form>
-            <form action="{{route("proveedores.index")}}" method="post">
+            <form action="{{route("proveedores.index")}}" method="get">
                 <button class="btn-custom bg-orange">Ver Proovedores</button>
             </form>
         </div>

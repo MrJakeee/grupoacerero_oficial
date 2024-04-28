@@ -30,8 +30,12 @@ Route::get("/administrador/excel-{id}", [EmpleadoAdministradorController::class,
 
 
 Route::get("/empleados", [EmpleadosController::class, "index"])->name("empleados.index");
+Route::post("/empleados/add", [EmpleadosController::class, "add"])->name("empleados.add");
 Route::post("/empleados/update", [EmpleadosController::class, "update"])->name("empleados.update");
 Route::get("/empleados/delete-{id}", [EmpleadosController::class, "delete"])->name("empleados.delete");
 
 Route::get("/proveedores", [ProveedoresController::class, "index"])->name("proveedores.index");
+Route::post("/proveedores/update", [ProveedoresController::class, "update"])->name("proveedores.update");
+Route::post("/proveedores/add", [ProveedoresController::class, "add"])->name("proveedores.add");
+
 
