@@ -22,6 +22,7 @@
                 <div class="text-center mt-3 justify-content-center" style="align-content: center; display: flex">
                     <span class="fw-bold-7 me-5 fs-5 ">@yield('usuario')</span>
                     <p class="fw-bold-7 me-5 fs-5">@yield('usuario_info_extra')</p>
+                    <p class="fw-bold-7 me-5 fs-5">@yield('usuario_cambiar_ventana')</p>
                 </div>
             </div>
         </nav>

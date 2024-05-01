@@ -12,6 +12,10 @@
 
 @endsection
 
+@section("usuario_cambiar_ventana")
+    <a class="usuario_info_extra" href="{{route("administrador.index")}}">Regresar</a>
+@endsection
+
 
 
 @section("contenedor")
